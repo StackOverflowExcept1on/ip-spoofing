@@ -2,6 +2,7 @@ use ip_spoofing::{etherparse::*, rand::*, RawSocket, ReusablePacketWriter};
 
 fn main() -> ip_spoofing::Result<()> {
     let socket = RawSocket::new()?;
+
     let mut writer = ReusablePacketWriter::new();
     let mut rng = thread_rng();
 

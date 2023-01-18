@@ -1,6 +1,5 @@
-use super::Result;
+use super::{Result, ReusablePacketWriter};
 
-use crate::ReusablePacketWriter;
 use nix::sys::socket::{
     sendto, socket, AddressFamily, MsgFlags, SockFlag, SockProtocol, SockType, SockaddrIn,
 };
