@@ -1,4 +1,4 @@
-use ip_spoofing::{etherparse::*, rand::*, RawSocket, ReusablePacketWriter};
+use ip_spoofing::{self, rand::*, RawSocket, ReusablePacketWriter};
 
 fn main() -> ip_spoofing::Result<()> {
     let socket = RawSocket::new()?;
