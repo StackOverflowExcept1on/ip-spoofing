@@ -1,3 +1,5 @@
+#![allow(clippy::new_without_default, clippy::too_many_arguments)]
+
 pub use etherparse;
 pub use rand;
 
