@@ -3,12 +3,14 @@ use super::Result;
 use etherparse::*;
 use rand::Rng;
 
+/// Wrapper around `Vec<u8>` that is pre-allocates memory for writing packet bytes
 #[derive(Debug)]
 pub struct ReusablePacketWriter {
     inner: Vec<u8>,
 }
 
 impl ReusablePacketWriter {
+    /// Creates wrapper around `Vec<u8>` with pre-allocated `u16::MAX` (max possible MTU size)
     #[inline]
     pub fn new() -> Self {
         Self {
@@ -16,11 +18,13 @@ impl ReusablePacketWriter {
         }
     }
 
+    /// Takes slice of memory from this wrapper
     #[inline]
     pub fn as_slice(&self) -> &[u8] {
         self.inner.as_slice()
     }
 
+    /// Builds IPv4 header with randomized `identification` field
     #[inline]
     pub fn build_ipv4_header(
         time_to_live: u8,
@@ -38,6 +42,7 @@ impl ReusablePacketWriter {
         IpHeader::Version4(ipv4_header, Default::default())
     }
 
+    /// Writes UDP packet into buffer with given parameters
     #[inline]
     pub fn write_udp_packet(
         &mut self,
@@ -59,6 +64,7 @@ impl ReusablePacketWriter {
         Ok(())
     }
 
+    /// Writes TCP-SYN packet into buffer with given parameters
     #[inline]
     pub fn write_tcp_syn_packet(
         &mut self,

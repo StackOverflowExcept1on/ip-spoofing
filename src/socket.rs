@@ -6,12 +6,14 @@ use nix::sys::socket::{
 use nix::unistd::close;
 use std::os::fd::{AsRawFd, RawFd};
 
+/// Wrapper around low-level `socket(AF_INET, SOCK_RAW, IPPROTO_RAW)`
 #[derive(Debug)]
 pub struct RawSocket {
     fd: RawFd,
 }
 
 impl RawSocket {
+    /// Trying to create raw socket
     #[inline]
     pub fn new() -> Result<Self> {
         let fd = socket(
@@ -23,6 +25,7 @@ impl RawSocket {
         Ok(Self { fd })
     }
 
+    /// Wraps `sendto` call with `nix` crate and other extra security checks
     #[inline]
     pub fn sendto(&self, buf: &[u8], addr: [u8; 4]) -> Result<usize> {
         let [a, b, c, d] = addr;
@@ -31,6 +34,7 @@ impl RawSocket {
         Ok(len)
     }
 
+    /// Sends fake UDP packet with given parameters
     #[inline]
     pub fn send_fake_udp_packet(
         &self,
@@ -53,6 +57,7 @@ impl RawSocket {
         self.sendto(writer.as_slice(), destination)
     }
 
+    /// Sends fake TCP-SYN packet with given parameters
     #[inline]
     pub fn send_fake_tcp_syn_packet(
         &self,
@@ -80,12 +85,14 @@ impl RawSocket {
     }
 }
 
+/// Implementation that converts `RawSocket` into `fd` (file descriptor)
 impl AsRawFd for RawSocket {
     fn as_raw_fd(&self) -> RawFd {
         self.fd
     }
 }
 
+/// Destructor implementation for `RawSocket`
 impl Drop for RawSocket {
     fn drop(&mut self) {
         let _ = close(self.fd);
