@@ -1,7 +1,13 @@
 [package]
 name = "ip-spoofing"
 version = "0.1.0"
+authors = ["StackOverflowExcept1on"]
 edition = "2021"
+description = "Library to send fake IPv4 headers & UDP/TCP-SYN packets to perform L3/L4 attacks"
+repository = "https://github.com/StackOverflowExcept1on/ip-spoofing"
+license = "MIT"
+keywords = ["ipv4", "tcp", "udp", "ip-spoofing"]
+categories = ["network-programming", "api-bindings"]
 
 [dependencies]
 thiserror = "1.0"
