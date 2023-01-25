@@ -1,6 +1,7 @@
 use std::net::UdpSocket;
 use std::{io, str};
 
+/// This example creates UDP server on `"0.0.0.0:5678` to listen for packets
 fn main() -> io::Result<()> {
     let addr = "0.0.0.0:5678";
     let socket = UdpSocket::bind(addr)?;
