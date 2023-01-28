@@ -8,6 +8,8 @@ In short, this library allows you to spoof your IP address on the network. For a
 to read the article from cloudflare:
 [The real cause of large DDoS - IP Spoofing](https://blog.cloudflare.com/the-root-cause-of-large-ddos-ip-spoofing/)
 
+It can be done on the L3 (network layer) of the [OSI model](https://en.wikipedia.org/wiki/OSI_model#Layer_architecture)
+
 Today, not all ISPs check the integrity of IPv4 headers.
 Therefore, in a real network, there are 2 options for spoofing IP addresses:
 
