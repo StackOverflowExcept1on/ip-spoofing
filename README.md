@@ -26,3 +26,16 @@ The only limitation of spoofing is that you can send packets, but you cannot rec
 
 You can check if this library works on your local network.
 To attack real networks, you need a specific provider that allows one of 2 spoofing options.
+
+### Useful links
+
+- [Internet Protocol version 4](https://en.wikipedia.org/wiki/Internet_Protocol_version_4) wikipedia article describing
+  the IPv4 header
+
+- [rickettm/SendIP](https://github.com/rickettm/SendIP) repository provides command line tool to allow sending arbitrary
+  IP packets
+
+  useful code of the SendIP project written in C:
+    - [creating raw sockets](https://github.com/rickettm/SendIP/blob/aad12a001157489ab9053c8665e09aec24a2ff6d/sendip.c#L143)
+    - [IPv4 header structure](https://github.com/rickettm/SendIP/blob/aad12a001157489ab9053c8665e09aec24a2ff6d/ipv4.h)
+    - [IPv4 header checksum](https://github.com/rickettm/SendIP/blob/aad12a001157489ab9053c8665e09aec24a2ff6d/csum.c)
