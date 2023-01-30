@@ -27,6 +27,35 @@ The only limitation of spoofing is that you can send packets, but you cannot rec
 You can check if this library works on your local network.
 To attack real networks, you need a specific provider that allows one of 2 spoofing options.
 
+### Code samples
+
+You can see other code samples in the [`examples/`](examples) directory.
+
+```rust
+use ip_spoofing::{self, RawSocket, ReusablePacketWriter};
+
+/// This example shows how to generate fake UDP packet
+/// that delivers `b"hey"` bytes from "8.8.8.8:1234" to "127.0.0.1:5678".
+///
+/// I.e. the attacker changes its IPv4 address to 8.8.8.8 (Google Public DNS)
+fn main() -> ip_spoofing::Result<()> {
+    let socket = RawSocket::new()?;
+    let mut writer = ReusablePacketWriter::new();
+
+    socket.send_fake_udp_packet(
+        &mut writer,
+        [8, 8, 8, 8],   //source IPv4 address
+        1234,           //source port
+        [127, 0, 0, 1], //destination IPv4 address
+        5678,           //destination port
+        b"hey",         //data
+        64,             //TTL on most Linux machines is 64
+    )?;
+
+    Ok(())
+}
+```
+
 ### Useful links
 
 - [Internet Protocol version 4](https://en.wikipedia.org/wiki/Internet_Protocol_version_4) wikipedia article describing
