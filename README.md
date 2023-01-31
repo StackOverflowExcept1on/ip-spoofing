@@ -1,6 +1,8 @@
 ### ip-spoofing
 
 [![Build Status](https://github.com/StackOverflowExcept1on/ip-spoofing/workflows/CI/badge.svg)](https://github.com/StackOverflowExcept1on/ip-spoofing/actions)
+[![Latest Version](https://img.shields.io/crates/v/ip-spoofing.svg)](https://crates.io/crates/ip-spoofing)
+[![Documentation](https://docs.rs/ip-spoofing/badge.svg)](https://docs.rs/ip-spoofing/)
 
 [![asciicast](https://asciinema.org/a/7jR9ycBIxIZkviA4sgm9niXbI.svg)](https://asciinema.org/a/7jR9ycBIxIZkviA4sgm9niXbI)
 
