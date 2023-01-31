@@ -2,6 +2,8 @@
 
 [![Build Status](https://github.com/StackOverflowExcept1on/ip-spoofing/workflows/CI/badge.svg)](https://github.com/StackOverflowExcept1on/ip-spoofing/actions)
 
+[![asciicast](https://asciinema.org/a/7jR9ycBIxIZkviA4sgm9niXbI.svg)](https://asciinema.org/a/7jR9ycBIxIZkviA4sgm9niXbI)
+
 Library to send fake IPv4 headers & UDP/TCP-SYN packets to perform L3/L4 attacks
 
 In short, this library allows you to spoof your IP address on the network. For a better understanding, it is recommended
