@@ -23,39 +23,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cargo cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.cargo
-          key: ${{ runner.os }}-${{ matrix.toolchain }}-cargo-${{ hashFiles('Cargo.toml') }}
-
       - name: Setup ${{ matrix.toolchain }} toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@master
         with:
-          profile: complete
           toolchain: ${{ matrix.toolchain }}
-          override: true
+          components: rustfmt, clippy
+
+      - name: Cargo cache
+        uses: Swatinem/rust-cache@v2
 
       - name: Cargo build
-        uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --verbose
+        run: cargo build --verbose --release
 
       - name: Cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: --verbose
+        run: cargo test --verbose --release
 
       - name: Cargo clippy
-        uses: actions-rs/cargo@v1
-        with:
-          command: clippy
-          args: --all-targets -- -D warnings
+        run: cargo clippy --verbose --release --all-targets -- -D warnings
 
       - name: Cargo fmt
-        uses: actions-rs/cargo@v1
-        with:
-          command: fmt
-          args: -- --check
+        run: cargo fmt -- --check
