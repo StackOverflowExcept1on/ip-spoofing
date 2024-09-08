@@ -8,8 +8,6 @@ pub enum Error {
     IO(#[from] std::io::Error),
     #[error("nix crate error: {0}")]
     Nix(#[from] nix::Error),
-    #[error("etherparse crate value error: {0}")]
-    EtherparseValue(#[from] etherparse::ValueError),
-    #[error("etherparse crate write error: {0}")]
-    EtherparseWrite(#[from] etherparse::WriteError),
+    #[error("etherparse crate error: {0}")]
+    Etherparse(#[from] etherparse::err::packet::BuildWriteError),
 }

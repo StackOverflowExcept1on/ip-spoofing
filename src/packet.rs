@@ -28,18 +28,22 @@ impl ReusablePacketWriter {
     #[inline]
     pub fn build_ipv4_header(
         time_to_live: u8,
-        protocol: u8,
+        protocol: IpNumber,
         source: [u8; 4],
         destination: [u8; 4],
-    ) -> IpHeader {
-        let mut ipv4_header = Ipv4Header::default();
-        ipv4_header.identification = rand::thread_rng().gen();
-        ipv4_header.time_to_live = time_to_live;
-        ipv4_header.protocol = protocol;
-        ipv4_header.source = source;
-        ipv4_header.destination = destination;
-
-        IpHeader::Version4(ipv4_header, Default::default())
+    ) -> IpHeaders {
+        let identification = rand::thread_rng().gen();
+        IpHeaders::Ipv4(
+            Ipv4Header {
+                identification,
+                time_to_live,
+                protocol,
+                source,
+                destination,
+                ..Default::default()
+            },
+            Default::default(),
+        )
     }
 
     /// Writes UDP packet into buffer with given parameters
@@ -55,7 +59,7 @@ impl ReusablePacketWriter {
     ) -> Result<()> {
         self.inner.clear();
 
-        let ip_header = Self::build_ipv4_header(time_to_live, ip_number::UDP, source, destination);
+        let ip_header = Self::build_ipv4_header(time_to_live, IpNumber::UDP, source, destination);
 
         PacketBuilder::ip(ip_header)
             .udp(source_port, destination_port)
@@ -79,7 +83,7 @@ impl ReusablePacketWriter {
     ) -> Result<()> {
         self.inner.clear();
 
-        let ip_header = Self::build_ipv4_header(time_to_live, ip_number::TCP, source, destination);
+        let ip_header = Self::build_ipv4_header(time_to_live, IpNumber::TCP, source, destination);
 
         PacketBuilder::ip(ip_header)
             .tcp(source_port, destination_port, sequence_number, window_size)

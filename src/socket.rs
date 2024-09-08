@@ -3,13 +3,12 @@ use super::{Result, ReusablePacketWriter};
 use nix::sys::socket::{
     sendto, socket, AddressFamily, MsgFlags, SockFlag, SockProtocol, SockType, SockaddrIn,
 };
-use nix::unistd::close;
-use std::os::fd::{AsRawFd, RawFd};
+use std::os::fd::{AsRawFd, OwnedFd, RawFd};
 
 /// Wrapper around low-level `socket(AF_INET, SOCK_RAW, IPPROTO_RAW)`
 #[derive(Debug)]
 pub struct RawSocket {
-    fd: RawFd,
+    fd: OwnedFd,
 }
 
 impl RawSocket {
@@ -30,7 +29,7 @@ impl RawSocket {
     pub fn sendto(&self, buf: &[u8], addr: [u8; 4]) -> Result<usize> {
         let [a, b, c, d] = addr;
         let addr = SockaddrIn::new(a, b, c, d, 0);
-        let len = sendto(self.fd, buf, &addr, MsgFlags::empty())?;
+        let len = sendto(self.fd.as_raw_fd(), buf, &addr, MsgFlags::empty())?;
         Ok(len)
     }
 
@@ -88,13 +87,6 @@ impl RawSocket {
 /// Implementation that converts `RawSocket` into `fd` (file descriptor)
 impl AsRawFd for RawSocket {
     fn as_raw_fd(&self) -> RawFd {
-        self.fd
-    }
-}
-
-/// Destructor implementation for `RawSocket`
-impl Drop for RawSocket {
-    fn drop(&mut self) {
-        let _ = close(self.fd);
+        self.fd.as_raw_fd()
     }
 }
