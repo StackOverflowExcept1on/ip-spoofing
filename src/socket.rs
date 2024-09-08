@@ -29,7 +29,7 @@ impl RawSocket {
     pub fn sendto(&self, buf: &[u8], addr: [u8; 4]) -> Result<usize> {
         let [a, b, c, d] = addr;
         let addr = SockaddrIn::new(a, b, c, d, 0);
-        let len = sendto(self.fd.as_raw_fd(), buf, &addr, MsgFlags::empty())?;
+        let len = sendto(self.as_raw_fd(), buf, &addr, MsgFlags::empty())?;
         Ok(len)
     }
 
