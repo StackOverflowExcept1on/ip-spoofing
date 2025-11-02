@@ -32,7 +32,7 @@ impl ReusablePacketWriter {
         source: [u8; 4],
         destination: [u8; 4],
     ) -> IpHeaders {
-        let identification = rand::thread_rng().gen();
+        let identification = rand::rng().random();
         IpHeaders::Ipv4(
             Ipv4Header {
                 identification,

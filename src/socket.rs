@@ -1,7 +1,7 @@
 use super::{Result, ReusablePacketWriter};
 
 use nix::sys::socket::{
-    sendto, socket, AddressFamily, MsgFlags, SockFlag, SockProtocol, SockType, SockaddrIn,
+    AddressFamily, MsgFlags, SockFlag, SockProtocol, SockType, SockaddrIn, sendto, socket,
 };
 use std::os::fd::{AsRawFd, OwnedFd, RawFd};
 

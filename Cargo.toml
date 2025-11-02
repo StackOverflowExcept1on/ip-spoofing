@@ -1,8 +1,8 @@
 [package]
 name = "ip-spoofing"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["StackOverflowExcept1on"]
-edition = "2021"
+edition = "2024"
 description = "Library to send fake IPv4 headers & UDP/TCP-SYN packets to perform L3/L4 attacks"
 repository = "https://github.com/StackOverflowExcept1on/ip-spoofing"
 license = "MIT"
@@ -10,7 +10,7 @@ keywords = ["ipv4", "tcp", "udp", "ip-spoofing"]
 categories = ["network-programming", "api-bindings"]
 
 [dependencies]
-thiserror = "1.0"
-rand = "0.8"
-nix = { version = "0.29", features = ["net"] }
-etherparse = "0.15"
+thiserror = "2.0"
+rand = "0.9"
+nix = { version = "0.30", features = ["net"] }
+etherparse = "0.19"
